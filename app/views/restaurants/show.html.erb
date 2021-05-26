@@ -1,0 +1,30 @@
+<h1><%= @restaurant.name %></h1>
+<h3><%= @restaurant.category %></h3>
+<p>address: <%= @restaurant.address %></p>
+<p>phone: <%= @restaurant.phone_number %></p>
+<div class="container">
+
+<h3>Reviews</h3>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item d-flex flex-column">
+      <div>
+      <% review.rating.to_i.times do %>
+        <span>⭐️</span>
+      <% end %>
+
+      </div>
+
+      <%= review.content %> <%= link_to review_path(review), method: :delete, data: { confirm: "Are you sure?" } do  %>
+
+        <%= icon('fas', 'trash-alt') %>
+      <% end %>
+
+    </li>
+  <% end %>
+</ul>
+<%= render 'review_form'%>
+<%= link_to 'Leave a Review', new_restaurant_review_path(@restaurant) %>
+</div>
+
+<%= link_to 'Home', restaurants_path %>
